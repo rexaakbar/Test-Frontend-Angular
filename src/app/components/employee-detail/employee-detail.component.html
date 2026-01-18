@@ -1,0 +1,77 @@
+<div style="min-height: 100vh; background: #f9fafb; padding: 2rem;">
+  <div style="max-width: 48rem; margin: 0 auto;">
+    <div style="background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 1.5rem;" *ngIf="employee">
+      <h1 style="font-size: 1.875rem; font-weight: bold; color: #1f2937; margin-bottom: 1.5rem;">Employee Details</h1>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Username and Email -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Username</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.username }}</p>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Email</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.email }}</p>
+          </div>
+        </div>
+
+        <!-- First Name and Last Name -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">First Name</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.firstName }}</p>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Last Name</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.lastName }}</p>
+          </div>
+        </div>
+
+        <!-- Birth Date and Basic Salary -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Birth Date</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ formatDate(employee.birthDate) }}</p>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Basic Salary</label>
+            <p style="font-size: 1.125rem; font-weight: 600; color: #059669;">{{ formatCurrency(employee.basicSalary) }}</p>
+          </div>
+        </div>
+
+        <!-- Status and Group -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Status</label>
+            <span [style]="'display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; ' + getStatusStyle(employee.status)">
+              {{ employee.status }}
+            </span>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Group</label>
+            <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.group }}</p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #6b7280; margin-bottom: 0.25rem;">Description</label>
+          <p style="font-size: 1.125rem; color: #1f2937;">{{ employee.description }}</p>
+        </div>
+
+        <!-- OK Button -->
+        <div style="padding-top: 1rem;">
+          <button
+            (click)="onBack()"
+            style="width: 100%; background: #2563eb; color: white; padding: 0.5rem; border-radius: 0.5rem; cursor: pointer; border: none; font-weight: 500;"
+            onmouseover="this.style.background='#1d4ed8'"
+            onmouseout="this.style.background='#2563eb'"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

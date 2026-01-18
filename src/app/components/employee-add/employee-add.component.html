@@ -1,0 +1,150 @@
+<div class="min-h-screen bg-gray-50 p-4 md:p-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6">Tambah Karyawan Baru</h1>
+      
+      <div class="space-y-4">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Username *</label>
+            <input
+              type="text"
+              [(ngModel)]="employee.username"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Username"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+            <input
+              type="email"
+              [(ngModel)]="employee.email"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Email"
+            />
+            <p *ngIf="employee.email && !cekEmail()" class="text-red-500 text-xs mt-1">
+              Format Email salah
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Depan *</label>
+            <input
+              type="text"
+              [(ngModel)]="employee.firstName"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Nama Depan"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Belakang *</label>
+            <input
+              type="text"
+              [(ngModel)]="employee.lastName"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Nama Belakang"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir *</label>
+            <input
+              type="date"
+              [(ngModel)]="employee.birthDate"
+              [max]="maxDate"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            />
+            <p *ngIf="employee.birthDate && !cekTanggalLahir()" class="text-red-500 text-xs mt-1">
+              Tanggal Lahir salah
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Gaji *</label>
+            <input
+              type="number"
+              [(ngModel)]="employee.basicSalary"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Gaji"
+              min="0"
+            />
+          </div>
+        </div>
+
+        <!-- Status and Group -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Status *</label>
+            <select
+              [(ngModel)]="employee.status"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            >
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Grup *</label>
+            <div class="relative">
+              <input
+                type="text"
+                [(ngModel)]="groupSearch"
+                (ngModelChange)="cariGrup()"
+                (focus)="showGroupDropdown = true"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Cari grup..."
+              />
+              <div
+                *ngIf="showGroupDropdown && filteredGroups.length > 0"
+                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+              >
+                <div
+                  *ngFor="let group of filteredGroups"
+                  (click)="pilihGrup(group)"
+                  class="px-4 py-2 hover:bg-blue-50 cursor-pointer"
+                >
+                  {{ group }}
+                </div>
+              </div>
+            </div>
+            <p *ngIf="employee.group" class="text-sm text-gray-600 mt-1">
+              Grup : {{ employee.group }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi *</label>
+          <input
+              type="date"
+              [(ngModel)]="employee.description"
+              [max]="maxDate"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            />
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-4 pt-4">
+          <button
+            (click)="kembali()"
+            class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition"
+          >
+            Cancel
+          </button>
+
+          <button
+            (click)="simpanKaryawan()"
+            [disabled]="!isFormValid()"
+            class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

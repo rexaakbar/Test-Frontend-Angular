@@ -1,0 +1,6 @@
+<router-outlet></router-outlet>
+
+<!-- Global Notification -->
+<div *ngIf="notification" [style]="getNotificationStyle()">
+  {{ notification.message }}
+</div>
